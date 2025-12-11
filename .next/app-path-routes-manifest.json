@@ -1,0 +1,10 @@
+{
+  "/api/cron/generate/route": "/api/cron/generate",
+  "/_not-found/page": "/_not-found",
+  "/api/cron/resolve/route": "/api/cron/resolve",
+  "/api/generate-market/route": "/api/generate-market",
+  "/favicon.ico/route": "/favicon.ico",
+  "/api/resolve-market/route": "/api/resolve-market",
+  "/page": "/",
+  "/auth/page": "/auth"
+}
