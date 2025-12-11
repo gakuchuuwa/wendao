@@ -71,10 +71,10 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
     return (
         <div className="relative bg-gradient-to-br from-[#faf8f5] to-[#f0ebe0] border border-[#d4af37]/30 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-[#d4af37]/60 flex flex-col min-h-[320px] group overflow-hidden">
 
-            {/* 装饰性角标 - 中国风 */}
+            {/* 装饰性角标 - 简约东方风 */}
             <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
                 <div className="absolute top-2 right-2 text-[#d4af37]/20 text-4xl transform rotate-12">
-                    ☯
+                    ◇
                 </div>
             </div>
 
@@ -94,10 +94,10 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
             {/* Resolved Status Badge */}
             {isResolved && outcome && (
                 <div className={`mb-4 px-4 py-2 rounded-xl text-sm font-bold text-center border ${outcome === "YES"
-                        ? "bg-[#0d5c4c]/10 text-[#0d5c4c] border-[#0d5c4c]/30"
-                        : "bg-red-50 text-red-700 border-red-200"
+                    ? "bg-[#0d5c4c]/10 text-[#0d5c4c] border-[#0d5c4c]/30"
+                    : "bg-red-50 text-red-700 border-red-200"
                     }`}>
-                    卦象已定: {outcome === "YES" ? "✅ 应验" : "❌ 未应"}
+                    已结束: {outcome === "YES" ? "✅ 是" : "❌ 否"}
                 </div>
             )}
 
@@ -106,13 +106,13 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
                 {endTime && (
                     <div className="text-center space-y-2">
                         <p className="text-sm text-[#0d5c4c]/70" style={{ fontFamily: "'Noto Serif SC', serif" }}>
-                            📅 卦期截止
+                            📅 截止时间
                         </p>
                         <p className="text-base font-medium text-[#0d5c4c]">
                             {formatDeadline(endTime)}
                         </p>
                         <p className={`text-xl font-bold ${isExpired ? "text-red-600" : "text-[#d4af37]"}`} style={{ fontFamily: "'Noto Serif SC', serif" }}>
-                            {isExpired ? "⏰ 已封盘" : `⏳ ${countdown}`}
+                            {isExpired ? "⏰ 已结束" : `⏳ ${countdown}`}
                         </p>
                     </div>
                 )}

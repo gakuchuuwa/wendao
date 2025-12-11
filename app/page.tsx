@@ -102,7 +102,7 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50 pb-20">
       <Navbar />
 
-      <div className="max-w-4xl mx-auto px-4 mt-8">
+      <div className="max-w-7xl mx-auto px-4 mt-8">
 
         {/* Admin Tools - Only visible with ?admin=true in URL */}
         {isAdminMode && (
@@ -131,18 +131,18 @@ export default function Home() {
         {/* Header - 中国风标题 */}
         <div className="mb-8 text-center">
           <div className="inline-block mb-4">
-            <span className="text-[#d4af37] text-4xl">☯</span>
+            <span className="text-[#d4af37] text-4xl">问</span>
           </div>
           <h1 className="text-4xl font-bold text-[#0d5c4c] mb-3" style={{ fontFamily: "'Noto Serif SC', serif" }}>
-            天机预测 · 热门事件
+            问DAO · 热门事件
           </h1>
           <p className="text-[#0d5c4c]/60 text-base" style={{ fontFamily: "'Noto Serif SC', serif" }}>
-            道法自然，以币问卦，顺势而为
+            智慧预测，共创未来
           </p>
         </div>
 
-        {/* Market Cards Grid - 大卡片布局 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Market Cards Grid - 4列布局 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* Main Market Card */}
           <MarketCard
             id={marketData.id}
