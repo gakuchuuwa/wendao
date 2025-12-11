@@ -1,16 +1,25 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import MarketCard from "@/components/MarketCard";
 import BetModal from "@/components/BetModal";
 import { useUser } from "@/context/UserContext";
 
 export default function Home() {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<{ id: string, direction: "YES" | "NO" } | null>(null);
   const [isAdminMode, setIsAdminMode] = useState(false);
-  const { isGuest, daoCoins, guestBets, mockMarket, adminResolveMarket, claimMockWinnings, resetMockMarket } = useUser();
+  const { isGuest, isAuthenticated, isLoading, daoCoins, guestBets, mockMarket, adminResolveMarket, claimMockWinnings, resetMockMarket } = useUser();
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!isLoading && !isGuest && !isAuthenticated) {
+      router.push("/auth");
+    }
+  }, [isLoading, isGuest, isAuthenticated, router]);
 
   // Check for admin mode from URL parameter (?admin=true)
   useEffect(() => {

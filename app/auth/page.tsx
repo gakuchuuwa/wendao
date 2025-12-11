@@ -182,13 +182,6 @@ export default function AuthPage() {
                     </button>
                 </div>
 
-                {/* Back to Home */}
-                <div className="mt-6 text-center">
-                    <Link href="/" className="text-sm text-[#0d5c4c] hover:underline">
-                        ← 返回首页 (访客模式)
-                    </Link>
-                </div>
-
                 {/* Bonus Notice */}
                 {!isLogin && (
                     <div className="mt-4 p-3 bg-[#d4af37]/10 rounded-lg text-sm text-[#0d5c4c] border border-[#d4af37]/30">
