@@ -1,9 +1,12 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 快速开始
 
-## Getting Started
+### 1. 安装依赖
+```bash
+npm install
+```
 
-First, run the development server:
-
+### 2. 启动开发服务器
 ```bash
 npm run dev
 # or
