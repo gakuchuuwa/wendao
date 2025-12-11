@@ -69,46 +69,36 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
     };
 
     return (
-        <div className="relative bg-gradient-to-br from-[#faf8f5] to-[#f0ebe0] border border-[#d4af37]/30 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-[#d4af37]/60 flex flex-col min-h-[320px] group overflow-hidden">
-
-            {/* 装饰性角标 - 简约东方风 */}
-            <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-                <div className="absolute top-2 right-2 text-[#d4af37]/20 text-4xl transform rotate-12">
-                    ◇
-                </div>
-            </div>
-
-            {/* 装饰性边框 */}
-            <div className="absolute inset-[6px] border border-[#0d5c4c]/10 rounded-xl pointer-events-none" />
+        <div className="bg-white border border-gray-200 rounded-xl p-5 shadow hover:shadow-lg transition-shadow flex flex-col min-h-[280px]">
 
             {/* Header with icon and question */}
-            <div className="flex items-start gap-4 mb-4">
-                <div className="w-14 h-14 flex items-center justify-center bg-gradient-to-br from-[#0d5c4c] to-[#0a4a3c] rounded-xl shadow-lg text-2xl">
+            <div className="flex items-start gap-3 mb-4">
+                <div className="w-12 h-12 flex items-center justify-center bg-[#2C5F4F] rounded-lg text-xl text-white">
                     {icon}
                 </div>
-                <h3 className="text-[#0d5c4c] font-bold text-lg leading-snug flex-1" style={{ fontFamily: "'Noto Serif SC', serif" }}>
+                <h3 className="text-[#1A1A1A] font-bold text-base leading-snug flex-1">
                     {question}
                 </h3>
             </div>
 
             {/* Resolved Status Badge */}
             {isResolved && outcome && (
-                <div className={`mb-4 px-4 py-2 rounded-xl text-sm font-bold text-center border ${outcome === "YES"
-                    ? "bg-[#0d5c4c]/10 text-[#0d5c4c] border-[#0d5c4c]/30"
-                    : "bg-red-50 text-red-700 border-red-200"
+                <div className={`mb-4 px-4 py-2 rounded-lg text-sm font-bold text-center ${outcome === "YES"
+                    ? "bg-[#2C5F4F]/10 text-[#2C5F4F]"
+                    : "bg-[#C44536]/10 text-[#C44536]"
                     }`}>
                     已结束: {outcome === "YES" ? "✅ 是" : "❌ 否"}
                 </div>
             )}
 
             {/* Countdown Section */}
-            <div className="flex-1 flex flex-col justify-center bg-gradient-to-r from-[#0d5c4c]/10 via-[#0d5c4c]/5 to-[#d4af37]/10 rounded-xl p-4 mb-4 border border-[#0d5c4c]/10">
+            <div className="flex-1 flex flex-col justify-center bg-gray-50 rounded-lg p-4 mb-4">
                 {endTime && (
-                    <div className="text-center space-y-2">
-                        <p className="text-sm text-[#0d5c4c]">
+                    <div className="text-center space-y-1">
+                        <p className="text-sm text-gray-600">
                             📅 {formatDeadline(endTime)}
                         </p>
-                        <p className={`text-lg font-bold ${isExpired ? "text-red-600" : "text-[#d4af37]"}`}>
+                        <p className={`text-lg font-bold ${isExpired ? "text-red-600" : "text-[#0d5c4c]"}`}>
                             {isExpired ? "⏰ 已结束" : `⏳ ${countdown}`}
                         </p>
                     </div>
@@ -120,18 +110,16 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
                 <button
                     onClick={() => onBet(id, "YES")}
                     disabled={isExpired || isResolved}
-                    className="flex-1 py-3 rounded-xl text-base font-bold transition-all duration-200 bg-gradient-to-r from-[#0d5c4c] to-[#1a7f6a] text-white hover:shadow-lg hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                    style={{ fontFamily: "'Noto Serif SC', serif" }}
+                    className="flex-1 py-3 rounded-lg font-bold bg-[#2C5F4F] text-white hover:bg-[#1E4238] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    ✅ 是 <span className="text-white/80 ml-1">{yesPercent}%</span>
+                    ✅ 是 {yesPercent}%
                 </button>
                 <button
                     onClick={() => onBet(id, "NO")}
                     disabled={isExpired || isResolved}
-                    className="flex-1 py-3 rounded-xl text-base font-bold transition-all duration-200 bg-gradient-to-r from-[#8b4513] to-[#a0522d] text-white hover:shadow-lg hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                    style={{ fontFamily: "'Noto Serif SC', serif" }}
+                    className="flex-1 py-3 rounded-lg font-bold bg-[#C44536] text-white hover:bg-[#A33A2D] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    ❌ 否 <span className="text-white/80 ml-1">{noPercent}%</span>
+                    ❌ 否 {noPercent}%
                 </button>
             </div>
         </div>
