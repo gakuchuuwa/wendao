@@ -73,9 +73,7 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
 
             {/* Header with icon and question */}
             <div className="flex items-start gap-3 mb-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-[#2C5F4F] rounded-lg text-xl text-white">
-                    {icon}
-                </div>
+                <span className="text-3xl">{icon}</span>
                 <h3 className="text-[#1A1A1A] font-bold text-base leading-snug flex-1">
                     {question}
                 </h3>
