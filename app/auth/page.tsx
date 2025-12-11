@@ -181,13 +181,6 @@ export default function AuthPage() {
                         微信登录 (即将推出)
                     </button>
                 </div>
-
-                {/* Bonus Notice */}
-                {!isLogin && (
-                    <div className="mt-4 p-3 bg-[#d4af37]/10 rounded-lg text-sm text-[#0d5c4c] border border-[#d4af37]/30">
-                        🎁 注册即送 <strong>100 道币</strong>，可用于预测下注！
-                    </div>
-                )}
             </div>
         </main>
     );
