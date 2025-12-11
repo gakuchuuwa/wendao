@@ -105,13 +105,10 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
             <div className="flex-1 flex flex-col justify-center bg-gradient-to-r from-[#0d5c4c]/10 via-[#0d5c4c]/5 to-[#d4af37]/10 rounded-xl p-4 mb-4 border border-[#0d5c4c]/10">
                 {endTime && (
                     <div className="text-center space-y-2">
-                        <p className="text-sm text-[#0d5c4c]/70" style={{ fontFamily: "'Noto Serif SC', serif" }}>
-                            📅 截止时间
+                        <p className="text-sm text-[#0d5c4c]">
+                            📅 {formatDeadline(endTime)}
                         </p>
-                        <p className="text-base font-medium text-[#0d5c4c]">
-                            {formatDeadline(endTime)}
-                        </p>
-                        <p className={`text-xl font-bold ${isExpired ? "text-red-600" : "text-[#d4af37]"}`} style={{ fontFamily: "'Noto Serif SC', serif" }}>
+                        <p className={`text-lg font-bold ${isExpired ? "text-red-600" : "text-[#d4af37]"}`}>
                             {isExpired ? "⏰ 已结束" : `⏳ ${countdown}`}
                         </p>
                     </div>
