@@ -128,16 +128,21 @@ export default function Home() {
           </div>
         )}
 
-        {/* Header */}
-        <div className="mb-6 text-center">
-          <h1 className="text-3xl font-bold text-[#0d5c4c] mb-2" style={{ fontFamily: 'Noto Serif SC, serif' }}>
+        {/* Header - 中国风标题 */}
+        <div className="mb-8 text-center">
+          <div className="inline-block mb-4">
+            <span className="text-[#d4af37] text-4xl">☯</span>
+          </div>
+          <h1 className="text-4xl font-bold text-[#0d5c4c] mb-3" style={{ fontFamily: "'Noto Serif SC', serif" }}>
             天机预测 · 热门事件
           </h1>
-          <p className="text-[#0d5c4c]/60 text-sm">用道币参与预测，赢取奖励</p>
+          <p className="text-[#0d5c4c]/60 text-base" style={{ fontFamily: "'Noto Serif SC', serif" }}>
+            道法自然，以币问卦，顺势而为
+          </p>
         </div>
 
-        {/* Market Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Market Cards Grid - 大卡片布局 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Main Market Card */}
           <MarketCard
             id={marketData.id}

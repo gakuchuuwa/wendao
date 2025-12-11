@@ -61,61 +61,80 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
     const formatDeadline = (timestamp: number) => {
         return new Date(timestamp).toLocaleString('zh-CN', {
             year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
+            month: 'long',
+            day: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
         });
     };
 
     return (
-        <div className="bg-[#faf8f5] border-2 border-[#0d5c4c]/20 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all hover:border-[#d4af37]/40 flex flex-col h-[240px]">
+        <div className="relative bg-gradient-to-br from-[#faf8f5] to-[#f0ebe0] border border-[#d4af37]/30 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:border-[#d4af37]/60 flex flex-col min-h-[320px] group overflow-hidden">
+
+            {/* 装饰性角标 - 中国风 */}
+            <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                <div className="absolute top-2 right-2 text-[#d4af37]/20 text-4xl transform rotate-12">
+                    ☯
+                </div>
+            </div>
+
+            {/* 装饰性边框 */}
+            <div className="absolute inset-[6px] border border-[#0d5c4c]/10 rounded-xl pointer-events-none" />
+
             {/* Header with icon and question */}
-            <div className="flex items-start gap-3 h-[56px]">
-                <span className="text-2xl">{icon}</span>
-                <h3 className="text-[#0d5c4c] font-bold text-sm leading-tight line-clamp-2">
+            <div className="flex items-start gap-4 mb-4">
+                <div className="w-14 h-14 flex items-center justify-center bg-gradient-to-br from-[#0d5c4c] to-[#0a4a3c] rounded-xl shadow-lg text-2xl">
+                    {icon}
+                </div>
+                <h3 className="text-[#0d5c4c] font-bold text-lg leading-snug flex-1" style={{ fontFamily: "'Noto Serif SC', serif" }}>
                     {question}
                 </h3>
             </div>
 
             {/* Resolved Status Badge */}
             {isResolved && outcome && (
-                <div className={`mt-2 px-3 py-1 rounded-lg text-xs font-bold text-center ${outcome === "YES" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                    已结束: {outcome === "YES" ? "✅ 是" : "❌ 否"}
+                <div className={`mb-4 px-4 py-2 rounded-xl text-sm font-bold text-center border ${outcome === "YES"
+                        ? "bg-[#0d5c4c]/10 text-[#0d5c4c] border-[#0d5c4c]/30"
+                        : "bg-red-50 text-red-700 border-red-200"
+                    }`}>
+                    卦象已定: {outcome === "YES" ? "✅ 应验" : "❌ 未应"}
                 </div>
             )}
 
             {/* Countdown Section */}
-            <div className="h-[68px] flex flex-col justify-center mt-2 bg-[#0d5c4c]/[0.15] rounded-lg p-2">
+            <div className="flex-1 flex flex-col justify-center bg-gradient-to-r from-[#0d5c4c]/10 via-[#0d5c4c]/5 to-[#d4af37]/10 rounded-xl p-4 mb-4 border border-[#0d5c4c]/10">
                 {endTime && (
-                    <div className="flex flex-col items-center gap-1">
-                        <div className="flex items-center gap-1 text-xs text-[#0d5c4c]/70">
-                            <span>📅</span>
-                            <span>截止: {formatDeadline(endTime)}</span>
-                        </div>
-                        <div className={`flex items-center gap-1 text-xs font-bold ${isExpired ? "text-red-600" : "text-[#0d5c4c]"}`}>
-                            <span>{isExpired ? "⏰" : "⏳"}</span>
-                            <span>{isExpired ? "已截止" : countdown}</span>
-                        </div>
+                    <div className="text-center space-y-2">
+                        <p className="text-sm text-[#0d5c4c]/70" style={{ fontFamily: "'Noto Serif SC', serif" }}>
+                            📅 卦期截止
+                        </p>
+                        <p className="text-base font-medium text-[#0d5c4c]">
+                            {formatDeadline(endTime)}
+                        </p>
+                        <p className={`text-xl font-bold ${isExpired ? "text-red-600" : "text-[#d4af37]"}`} style={{ fontFamily: "'Noto Serif SC', serif" }}>
+                            {isExpired ? "⏰ 已封盘" : `⏳ ${countdown}`}
+                        </p>
                     </div>
                 )}
             </div>
 
             {/* Betting Buttons */}
-            <div className="flex gap-2 mt-auto">
+            <div className="flex gap-3">
                 <button
                     onClick={() => onBet(id, "YES")}
                     disabled={isExpired || isResolved}
-                    className="flex-1 py-2 rounded-lg text-sm font-bold transition bg-green-500/20 text-green-700 hover:bg-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 py-3 rounded-xl text-base font-bold transition-all duration-200 bg-gradient-to-r from-[#0d5c4c] to-[#1a7f6a] text-white hover:shadow-lg hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    style={{ fontFamily: "'Noto Serif SC', serif" }}
                 >
-                    ✅ 是 {yesPercent}%
+                    ✅ 是 <span className="text-white/80 ml-1">{yesPercent}%</span>
                 </button>
                 <button
                     onClick={() => onBet(id, "NO")}
                     disabled={isExpired || isResolved}
-                    className="flex-1 py-2 rounded-lg text-sm font-bold transition bg-red-500/20 text-red-700 hover:bg-red-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 py-3 rounded-xl text-base font-bold transition-all duration-200 bg-gradient-to-r from-[#8b4513] to-[#a0522d] text-white hover:shadow-lg hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    style={{ fontFamily: "'Noto Serif SC', serif" }}
                 >
-                    ❌ 否 {noPercent}%
+                    ❌ 否 <span className="text-white/80 ml-1">{noPercent}%</span>
                 </button>
             </div>
         </div>
