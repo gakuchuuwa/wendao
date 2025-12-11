@@ -1,5 +1,4 @@
 "use client";
-// v5.0.0 - Social Login Update
 
 import Link from "next/link";
 import { useUser } from "@/context/UserContext";
@@ -9,7 +8,7 @@ export default function Navbar() {
     const { isGuest, daoCoins, shareToEarn, logout, user, isAuthenticated } = useUser();
 
     return (
-        <nav className="bg-[#0d5c4c] text-white shadow-lg border-b-2 border-[#d4af37]/30">
+        <nav className="bg-[#2C5F4F] text-white shadow-md">
             <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
                 <Link href="/" className="flex items-center gap-3 group">
                     <div className="relative w-10 h-10">
@@ -21,7 +20,7 @@ export default function Navbar() {
                             className="group-hover:rotate-180 transition-transform duration-700"
                         />
                     </div>
-                    <span className="text-2xl font-bold text-[#d4af37] tracking-wider">
+                    <span className="text-2xl font-bold text-white tracking-wider">
                         问DAO
                     </span>
                 </Link>
@@ -29,13 +28,13 @@ export default function Navbar() {
                 <div className="flex items-center gap-4">
                     {isGuest ? (
                         <>
-                            <div className="flex items-center gap-2 px-4 py-2 bg-[#d4af37]/20 rounded-lg border border-[#d4af37]/40">
-                                <span className="text-[#d4af37] font-bold">☯️ {daoCoins}</span>
-                                <span className="text-xs text-[#d4af37]/80">道币</span>
+                            <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg">
+                                <span className="text-white font-bold">🪙 {daoCoins}</span>
+                                <span className="text-xs text-white/70">道币</span>
                             </div>
                             <button
                                 onClick={shareToEarn}
-                                className="px-4 py-2 bg-[#d4af37]/10 text-[#d4af37] rounded-lg hover:bg-[#d4af37]/20 transition border border-[#d4af37]/30 font-medium"
+                                className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition"
                             >
                                 🔗 分享得币
                             </button>
@@ -49,7 +48,7 @@ export default function Navbar() {
                     ) : (
                         <a
                             href="/auth"
-                            className="px-6 py-2 bg-[#d4af37] text-[#0d5c4c] rounded-lg font-bold hover:bg-[#e5c048] transition shadow-lg"
+                            className="px-6 py-2 bg-white text-[#2C5F4F] rounded-lg font-bold hover:bg-gray-100 transition"
                         >
                             登录 / 注册
                         </a>
