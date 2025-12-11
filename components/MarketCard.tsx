@@ -81,7 +81,7 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
             {/* Resolved Status Badge */}
             {isResolved && outcome && (
                 <div className={`mt-2 px-3 py-1 rounded-lg text-xs font-bold text-center ${outcome === "YES" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                    已结束: {outcome === "YES" ? "☯️ 顺天" : "🔥 逆天"}
+                    已结束: {outcome === "YES" ? "✅ 是" : "❌ 否"}
                 </div>
             )}
 
@@ -106,14 +106,14 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
                     disabled={isExpired || isResolved}
                     className="flex-1 py-2 rounded-lg text-sm font-bold transition bg-green-500/20 text-green-700 hover:bg-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    ☯️ 顺天 {yesPercent}%
+                    ✅ 是 {yesPercent}%
                 </button>
                 <button
                     onClick={() => onBet(id, "NO")}
                     disabled={isExpired || isResolved}
                     className="flex-1 py-2 rounded-lg text-sm font-bold transition bg-red-500/20 text-red-700 hover:bg-red-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    🔥 逆天 {noPercent}%
+                    ❌ 否 {noPercent}%
                 </button>
             </div>
         </div>
