@@ -1,6 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { supabase, getUserProfile } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
 
 interface GuestBet {
     marketId: string;
@@ -10,10 +12,18 @@ interface GuestBet {
 }
 
 interface UserContextType {
+    // Auth state
+    user: User | null;
+    isAuthenticated: boolean;
+    isLoading: boolean;
+
+    // Legacy guest mode (kept for backward compatibility)
     isGuest: boolean;
     daoCoins: number;
     guestBets: GuestBet[];
     mockMarket: { id: string, endTime: number, resolved: boolean, outcome: number, hasClaimed: boolean };
+
+    // Actions
     shareToEarn: () => void;
     placeGuestBet: (marketId: string, direction: "YES" | "NO", amount: number) => boolean;
     adminResolveMarket: (outcome: 1 | 2) => void;
@@ -21,11 +31,17 @@ interface UserContextType {
     resetMockMarket: () => void;
     loginAsGuest: () => void;
     logoutGuest: () => void;
+    logout: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
+    // Supabase Auth state
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Legacy guest mode state
     const [isGuest, setIsGuest] = useState(false);
     const [daoCoins, setDaoCoins] = useState(0);
     const [guestBets, setGuestBets] = useState<GuestBet[]>([]);
@@ -39,9 +55,46 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         hasClaimed: false
     });
 
-    // Init from local storage
+    // Initialize Supabase Auth listener
     useEffect(() => {
-        if (typeof window === 'undefined') return;
+        // Get initial session
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setUser(session?.user ?? null);
+            if (session?.user) {
+                setIsGuest(true); // Authenticated users are also considered "logged in"
+                // Fetch user's dao coins from profile
+                getUserProfile(session.user.id).then(profile => {
+                    if (profile) {
+                        setDaoCoins(profile.dao_coins || 100); // Default 100 for new users
+                    }
+                });
+            }
+            setIsLoading(false);
+        });
+
+        // Listen for auth changes
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+            async (event, session) => {
+                setUser(session?.user ?? null);
+                if (session?.user) {
+                    setIsGuest(true);
+                    const profile = await getUserProfile(session.user.id);
+                    if (profile) {
+                        setDaoCoins(profile.dao_coins || 100);
+                    }
+                } else {
+                    setIsGuest(false);
+                    setDaoCoins(0);
+                }
+            }
+        );
+
+        return () => subscription.unsubscribe();
+    }, []);
+
+    // Init guest mode from local storage (fallback for non-authenticated users)
+    useEffect(() => {
+        if (typeof window === 'undefined' || user) return;
         const storedCoins = localStorage.getItem("wendao_coins");
         const storedBets = localStorage.getItem("wendao_bets");
         const storedIsGuest = localStorage.getItem("wendao_is_guest");
@@ -51,16 +104,16 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         if (storedBets) setGuestBets(JSON.parse(storedBets));
         if (storedIsGuest === "true") setIsGuest(true);
         if (storedMockMarket) setMockMarket(JSON.parse(storedMockMarket));
-    }, []);
+    }, [user]);
 
-    // Persist changes
+    // Persist guest mode changes to localStorage (only for non-authenticated users)
     useEffect(() => {
-        if (typeof window === 'undefined') return;
+        if (typeof window === 'undefined' || user) return;
         localStorage.setItem("wendao_coins", daoCoins.toString());
         localStorage.setItem("wendao_bets", JSON.stringify(guestBets));
         localStorage.setItem("wendao_is_guest", isGuest.toString());
         localStorage.setItem("wendao_mock_market", JSON.stringify(mockMarket));
-    }, [daoCoins, guestBets, isGuest, mockMarket]);
+    }, [daoCoins, guestBets, isGuest, mockMarket, user]);
 
     const shareToEarn = () => {
         if (typeof window === 'undefined') return;
@@ -170,10 +223,27 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         setIsGuest(false);
         setDaoCoins(0);
         setGuestBets([]);
+        localStorage.removeItem("wendao_coins");
+        localStorage.removeItem("wendao_bets");
+        localStorage.removeItem("wendao_is_guest");
+    };
+
+    const logout = async () => {
+        await supabase.auth.signOut();
+        setUser(null);
+        setIsGuest(false);
+        setDaoCoins(0);
+        setGuestBets([]);
+        localStorage.removeItem("wendao_coins");
+        localStorage.removeItem("wendao_bets");
+        localStorage.removeItem("wendao_is_guest");
     };
 
     return (
         <UserContext.Provider value={{
+            user,
+            isAuthenticated: !!user,
+            isLoading,
             isGuest,
             daoCoins,
             guestBets,
@@ -184,7 +254,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
             claimMockWinnings,
             resetMockMarket,
             loginAsGuest,
-            logoutGuest
+            logoutGuest,
+            logout
         }}>
             {children}
         </UserContext.Provider>

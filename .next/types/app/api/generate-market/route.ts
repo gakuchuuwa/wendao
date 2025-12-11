@@ -1,4 +1,4 @@
-// File: C:\Users\GAKU\Desktop\wendao\frontend\app\api\generate-market\route.ts
+// File: C:\Users\GAKU\Desktop\wendao\app\api\generate-market\route.ts
 import * as entry from '../../../../../app/api/generate-market/route.js'
 import type { NextRequest } from 'next/server.js'
 

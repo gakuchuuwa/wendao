@@ -1,10 +1,10 @@
 {
-  "/api/cron/generate/route": "app/api/cron/generate/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
+  "/api/resolve-market/route": "app/api/resolve-market/route.js",
   "/api/cron/resolve/route": "app/api/cron/resolve/route.js",
   "/api/generate-market/route": "app/api/generate-market/route.js",
+  "/api/cron/generate/route": "app/api/cron/generate/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/api/resolve-market/route": "app/api/resolve-market/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
   "/auth/page": "app/auth/page.js"
 }

@@ -1,4 +1,4 @@
-// File: C:\Users\GAKU\Desktop\wendao\frontend\app\auth\page.tsx
+// File: C:\Users\GAKU\Desktop\wendao\app\auth\page.tsx
 import * as entry from '../../../../app/auth/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

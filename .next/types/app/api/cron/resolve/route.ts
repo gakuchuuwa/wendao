@@ -1,4 +1,4 @@
-// File: C:\Users\GAKU\Desktop\wendao\frontend\app\api\cron\resolve\route.ts
+// File: C:\Users\GAKU\Desktop\wendao\app\api\cron\resolve\route.ts
 import * as entry from '../../../../../../app/api/cron/resolve/route.js'
 import type { NextRequest } from 'next/server.js'
 

@@ -1,12 +1,12 @@
 "use client";
-// v4.0.4 - Deployed 2025-12-11
+// v5.0.0 - Social Login Update
 
 import Link from "next/link";
 import { useUser } from "@/context/UserContext";
 import Image from "next/image";
 
 export default function Navbar() {
-    const { isGuest, daoCoins, shareToEarn, loginAsGuest, logoutGuest } = useUser();
+    const { isGuest, daoCoins, shareToEarn, logout, user, isAuthenticated } = useUser();
 
     return (
         <nav className="bg-[#0d5c4c] text-white shadow-lg border-b-2 border-[#d4af37]/30">
@@ -40,19 +40,19 @@ export default function Navbar() {
                                 🔗 分享得币
                             </button>
                             <button
-                                onClick={logoutGuest}
+                                onClick={logout}
                                 className="px-4 py-2 text-white/70 hover:text-white transition"
                             >
                                 退出
                             </button>
                         </>
                     ) : (
-                        <button
-                            onClick={loginAsGuest}
+                        <a
+                            href="/auth"
                             className="px-6 py-2 bg-[#d4af37] text-[#0d5c4c] rounded-lg font-bold hover:bg-[#e5c048] transition shadow-lg"
                         >
                             登录 / 注册
-                        </button>
+                        </a>
                     )}
                 </div>
             </div>

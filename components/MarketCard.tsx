@@ -60,6 +60,7 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
 
     const formatDeadline = (timestamp: number) => {
         return new Date(timestamp).toLocaleString('zh-CN', {
+            year: 'numeric',
             month: '2-digit',
             day: '2-digit',
             hour: '2-digit',
@@ -80,7 +81,7 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
             {/* Resolved Status Badge */}
             {isResolved && outcome && (
                 <div className={`mt-2 px-3 py-1 rounded-lg text-xs font-bold text-center ${outcome === "YES" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                    已结束: {outcome === "YES" ? "✅ 是" : "❌ 否"}
+                    已结束: {outcome === "YES" ? "☯️ 顺天" : "🔥 逆天"}
                 </div>
             )}
 
@@ -89,7 +90,7 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
                 {endTime && (
                     <>
                         <p className="text-[10px] text-[#0d5c4c]/70 text-center">
-                            截止: {formatDeadline(endTime)}
+                            📅 截止: {formatDeadline(endTime)}
                         </p>
                         <p className={`text-sm font-bold text-center truncate ${isExpired ? "text-red-600" : "text-[#0d5c4c]"}`}>
                             {isExpired ? "⏰ 已截止" : `⏳ ${countdown}`}
@@ -105,14 +106,14 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
                     disabled={isExpired || isResolved}
                     className="flex-1 py-2 rounded-lg text-sm font-bold transition bg-green-500/20 text-green-700 hover:bg-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    ✅ 是 {yesPercent}%
+                    ☯️ 顺天 {yesPercent}%
                 </button>
                 <button
                     onClick={() => onBet(id, "NO")}
                     disabled={isExpired || isResolved}
                     className="flex-1 py-2 rounded-lg text-sm font-bold transition bg-red-500/20 text-red-700 hover:bg-red-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    ❌ 否 {noPercent}%
+                    🔥 逆天 {noPercent}%
                 </button>
             </div>
         </div>
