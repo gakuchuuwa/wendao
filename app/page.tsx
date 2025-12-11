@@ -131,7 +131,7 @@ export default function Home() {
         {/* Header - 中国风标题 */}
         <div className="mb-8 text-center">
           <div className="inline-block mb-4">
-            <span className="text-[#d4af37] text-4xl">问</span>
+            <span className="text-[#d4af37] text-4xl">◆</span>
           </div>
           <h1 className="text-4xl font-bold text-[#0d5c4c] mb-3" style={{ fontFamily: "'Noto Serif SC', serif" }}>
             问DAO · 热门事件
