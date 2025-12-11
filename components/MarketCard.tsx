@@ -88,14 +88,16 @@ export default function MarketCard({ id, question, totalYes, totalNo, onBet, isR
             {/* Countdown Section */}
             <div className="h-[68px] flex flex-col justify-center mt-2 bg-[#0d5c4c]/[0.15] rounded-lg p-2">
                 {endTime && (
-                    <>
-                        <p className="text-[10px] text-[#0d5c4c]/70 text-center">
-                            📅 截止: {formatDeadline(endTime)}
-                        </p>
-                        <p className={`text-sm font-bold text-center truncate ${isExpired ? "text-red-600" : "text-[#0d5c4c]"}`}>
-                            {isExpired ? "⏰ 已截止" : `⏳ ${countdown}`}
-                        </p>
-                    </>
+                    <div className="flex flex-col items-center gap-1">
+                        <div className="flex items-center gap-1 text-xs text-[#0d5c4c]/70">
+                            <span>📅</span>
+                            <span>截止: {formatDeadline(endTime)}</span>
+                        </div>
+                        <div className={`flex items-center gap-1 text-xs font-bold ${isExpired ? "text-red-600" : "text-[#0d5c4c]"}`}>
+                            <span>{isExpired ? "⏰" : "⏳"}</span>
+                            <span>{isExpired ? "已截止" : countdown}</span>
+                        </div>
+                    </div>
                 )}
             </div>
 
